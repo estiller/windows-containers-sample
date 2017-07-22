@@ -6,3 +6,13 @@ services:
     build:
       context: .\CodeTweet.Web
       dockerfile: Dockerfile
+    links:
+      - codetweet.db
+    environment:
+      - CONNECTION_STRING=Server=tcp:codetweet.db,1433;Initial Catalog=codetweet;Persist Security Info=False;User ID=sa;Password=${SA_PASSWORD};
+
+  codetweet.db:
+    image: microsoft/mssql-server-windows-express
+    environment:
+      - ACCEPT_EULA=Y
+      - sa_password=${SA_PASSWORD}
