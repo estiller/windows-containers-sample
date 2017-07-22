@@ -21,3 +21,15 @@ services:
 
   codetweet.rabbitmq:
     image: stiller/rabbitmq
+
+  codetweet.worker:
+    image: codetweet.worker
+    build:
+      context: .\CodeTweet.Worker
+      dockerfile: Dockerfile
+    links:
+      - codetweet.db
+      - codetweet.rabbitmq
+    environment:
+      - CONNECTION_STRING=Server=tcp:codetweet.db,1433;Initial Catalog=codetweet;Persist Security Info=False;User ID=sa;Password=${SA_PASSWORD};
+      - RABBITMQ_CONNECTION_STRING=host=codetweet.rabbitmq;username=guest;password=guest
