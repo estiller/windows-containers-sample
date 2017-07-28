@@ -1,0 +1,35 @@
+version: '2.1'
+
+services:
+  codetweet.web:
+    image: stiller/codetweet.web:latest
+    links:
+      - codetweet.db
+      - codetweet.rabbitmq
+    environment:
+      - CONNECTION_STRING=Server=tcp:codetweet.db,1433;Initial Catalog=codetweet;Persist Security Info=False;User ID=sa;Password=${SA_PASSWORD};
+      - RABBITMQ_CONNECTION_STRING=host=codetweet.rabbitmq;username=guest;password=guest
+    ports:
+      - "80"
+
+  codetweet.db:
+    image: microsoft/mssql-server-windows-express
+    environment:
+      - ACCEPT_EULA=Y
+      - sa_password=${SA_PASSWORD}
+
+  codetweet.rabbitmq:
+    image: stiller/rabbitmq
+
+  codetweet.worker:
+    image: stiller/codetweet.worker:latest
+    links:
+      - codetweet.db
+      - codetweet.rabbitmq
+    environment:
+      - CONNECTION_STRING=Server=tcp:codetweet.db,1433;Initial Catalog=codetweet;Persist Security Info=False;User ID=sa;Password=${SA_PASSWORD};
+      - RABBITMQ_CONNECTION_STRING=host=codetweet.rabbitmq;username=guest;password=guest
+networks:
+  default:
+    external:
+      name: nat
