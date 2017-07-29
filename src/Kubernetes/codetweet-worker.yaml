@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: codetweet-worker
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: codetweet-worker
+    spec:
+      containers:
+      - name: codetweet-worker
+        image: stiller/codetweet.worker:latest
+        env:
+        - name: CONNECTION_STRING
+          value: Server=tcp:codetweet-db,1433;Initial Catalog=codetweet;Persist Security Info=False;User ID=sa;Password=PasswordF0rP@blish;
+        - name: RABBITMQ_CONNECTION_STRING
+          value: host=codetweet-rabbitmq;username=guest;password=guest
+        resources: {}
+      nodeSelector:
+        beta.kubernetes.io/os: windows
+      restartPolicy: Always

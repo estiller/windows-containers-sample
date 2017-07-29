@@ -27,6 +27,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{DF2DBD
 		PublishContainers.bat = PublishContainers.bat
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{E513510A-B329-4B40-A7DA-C1AB329D64EC}"
+	ProjectSection(SolutionItems) = preProject
+		Kubernetes\codetweet-db.yaml = Kubernetes\codetweet-db.yaml
+		Kubernetes\codetweet-rabbitmq.yaml = Kubernetes\codetweet-rabbitmq.yaml
+		Kubernetes\codetweet-web.yaml = Kubernetes\codetweet-web.yaml
+		Kubernetes\codetweet-worker.yaml = Kubernetes\codetweet-worker.yaml
+		Kubernetes\deployment.ps1 = Kubernetes\deployment.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

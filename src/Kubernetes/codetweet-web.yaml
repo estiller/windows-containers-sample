@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: codetweet-web
+  labels:
+    run: codetweet-web
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    run: codetweet-web
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: codetweet-web
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: codetweet-web
+    spec:
+      containers:
+      - name: codetweet-web
+        image: stiller/codetweet.web:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: CONNECTION_STRING
+          value: Server=tcp:codetweet-db,1433;Initial Catalog=codetweet;Persist Security Info=False;User ID=sa;Password=PasswordF0rP@blish;
+        - name: RABBITMQ_CONNECTION_STRING
+          value: host=codetweet-rabbitmq;username=guest;password=guest
+      nodeSelector:
+        beta.kubernetes.io/os: windows
+      restartPolicy: Always

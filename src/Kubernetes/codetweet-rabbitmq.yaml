@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: codetweet-rabbitmq
+  labels:
+    run: codetweet-rabbitmq
+spec:
+  ports:
+  - name: epmd
+    port: 4369
+    protocol: TCP
+  - name: amqp1
+    port: 5671
+    protocol: TCP
+  - name: amqp2
+    port: 5672
+    protocol: TCP
+  selector:
+    run: codetweet-rabbitmq
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: codetweet-rabbitmq
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: codetweet-rabbitmq
+    spec:
+      containers:
+      - name: codetweet-rabbitmq
+        image: stiller/rabbitmq
+        ports:
+        - containerPort: 4369
+        - containerPort: 5671
+        - containerPort: 5672
+        - containerPort: 15672
+      nodeSelector:
+        beta.kubernetes.io/os: windows
+      restartPolicy: Always
