@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceManifest Name="WorkerPkg"
+                 Version="1.0.0"
+                 xmlns="http://schemas.microsoft.com/2011/01/fabric"
+                 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ServiceTypes>
+    <StatelessServiceType ServiceTypeName="Worker" UseImplicitHost="true" />
+  </ServiceTypes>
+
+  <CodePackage Name="Code" Version="1.0.0">
+    <EntryPoint>
+      <ContainerHost>
+        <ImageName>stiller/codetweet.worker:latest</ImageName>
+      </ContainerHost>
+    </EntryPoint>
+    <EnvironmentVariables>
+      <EnvironmentVariable Name="CONNECTION_STRING" Value="Server=tcp:db,1433;Initial Catalog=codetweet;Persist Security Info=False;User ID=sa;Password=PasswordF0rP@blish;"/>
+      <EnvironmentVariable Name="RABBITMQ_CONNECTION_STRING" Value="host=rabbitmq;username=guest;password=guest"/>
+    </EnvironmentVariables>
+  </CodePackage>
+
+  <ConfigPackage Name="Config" Version="1.0.0" />
+
+  <Resources>
+    <Endpoints>
+      <Endpoint Name="WorkerEndpoint" />
+    </Endpoints>
+  </Resources>
+</ServiceManifest>
