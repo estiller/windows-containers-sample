@@ -24,6 +24,12 @@ namespace CodeTweet.Web
                 var identityConnectionString = ConfigurationManager.ConnectionStrings["CodeTweetIdentity"];
                 SetConnectionString(identityConnectionString, sqlConnectionString);
             }
+
+            string rabbitMqConnectionString = System.Environment.GetEnvironmentVariable("RABBITMQ_CONNECTION_STRING");
+            if (rabbitMqConnectionString != null)
+            {
+                ConfigurationManager.AppSettings["RabbitMQ_ConnectionString"] = rabbitMqConnectionString;
+            }
         }
 
         private static void SetConnectionString(ConnectionStringSettings connectionString, string sqlConnectionString)
