@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: codetweet-worker
-        image: stiller/codetweet.worker:latest
+        image: stiller/codetweetworker:latest
         env:
         - name: CONNECTION_STRING
           value: Server=tcp:codetweet-db,1433;Initial Catalog=codetweet;Persist Security Info=False;User ID=sa;Password=PasswordF0rP@blish;
