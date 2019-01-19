@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  codetweet.web:
+    image: ${DOCKER_REGISTRY-}codetweetweb
+    build:
+      context: .\CodeTweet.Web
+      dockerfile: Dockerfile
