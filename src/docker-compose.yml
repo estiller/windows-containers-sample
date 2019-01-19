@@ -1,8 +1,8 @@
-version: '3'
+version: '3.4'
 
 services:
   codetweet.web:
-    image: codetweet.web
+    image: ${DOCKER_REGISTRY-}codetweetweb
     build:
       context: .\CodeTweet.Web
       dockerfile: Dockerfile
@@ -23,7 +23,7 @@ services:
     image: stiller/rabbitmq
 
   codetweet.worker:
-    image: codetweet.worker
+    image: ${DOCKER_REGISTRY-}codetweetworker
     build:
       context: .\CodeTweet.Worker
       dockerfile: Dockerfile
