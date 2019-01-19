@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
   codetweet.web:
-    image: stiller/codetweet.web:latest
+    image: stiller/codetweetweb:latest
     links:
       - codetweet.db
       - codetweet.rabbitmq
@@ -22,7 +22,7 @@ services:
     image: stiller/rabbitmq
 
   codetweet.worker:
-    image: stiller/codetweet.worker:latest
+    image: stiller/codetweetworker:latest
     links:
       - codetweet.db
       - codetweet.rabbitmq

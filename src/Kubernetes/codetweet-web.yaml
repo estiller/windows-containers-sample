@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: codetweet-web
-        image: stiller/codetweet.web:latest
+        image: stiller/codetweetweb:latest
         ports:
         - containerPort: 80
         env:

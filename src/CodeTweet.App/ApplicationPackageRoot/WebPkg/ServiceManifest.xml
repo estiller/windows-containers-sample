@@ -11,7 +11,7 @@
   <CodePackage Name="Code" Version="1.0.0">
     <EntryPoint>
       <ContainerHost>
-        <ImageName>stiller/codetweet.web:latest</ImageName>
+        <ImageName>stiller/codetweetweb:latest</ImageName>
       </ContainerHost>
     </EntryPoint>
     <EnvironmentVariables>
